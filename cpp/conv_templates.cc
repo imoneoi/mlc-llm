@@ -72,6 +72,25 @@ Conversation NeuralHermesMistral() {
   return conv;
 }
 
+Conversation OpenChat35() {
+  Conversation conv;
+  conv.name = "openchat_35";
+  conv.roles = {"GPT4 Correct User", "GPT4 Correct Assistant"};
+  conv.system = "";
+  conv.messages = {};
+  conv.offset = 0;
+  conv.separator_style = SeparatorStyle::kSepRoleMsg;
+  conv.seps = {"<|end_of_turn|>", "<|end_of_turn|>"};
+  conv.role_msg_sep = ": ";
+  conv.role_empty_sep = ":";
+  // TODO(mlc-team): add eos to mlc-chat-config
+  // and remove eos from stop token setting.
+  conv.stop_tokens = {32000};
+  conv.stop_str = "<|end_of_turn|>";
+  conv.add_bos = true;
+  return conv;
+}
+
 Conversation LlamaDefault() {
   Conversation conv;
   conv.name = "llama_default";
@@ -710,6 +729,7 @@ Conversation Conversation::FromTemplate(const std::string& name) {
       {"llama_default", LlamaDefault},
       {"llama-2", Llama2},
       {"mistral_default", MistralDefault},
+      {"openchat_35", OpenChat35},
       {"open_hermes_mistral", OpenHermesMistral},
       {"neural_hermes_mistral", NeuralHermesMistral},
       {"codellama_completion", CodeLlamaCompletion},
